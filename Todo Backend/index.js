@@ -8,9 +8,9 @@ app.get('/todos/:id', async (req, res) => {
     try {
         var data = await pool.query("select type from userdata where stud_id = $1", [req.params.id]);
         if (data.rows[0].type != "super admin")
-            var allTodo = await pool.query("select * from todo where id=$1 order by task_id", [req.params.id]);
+            var allTodo = await pool.query("select * from todo where id=$1 order by task_id DESC", [req.params.id]);
         else {
-            var allTodo = await pool.query("select * from todo order by task_id");
+            var allTodo = await pool.query("select * from todo order by task_id DESC");
         }
         res.json(allTodo.rows);
     } catch (err) {
